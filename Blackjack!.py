@@ -53,6 +53,8 @@ def dealer_turn():
         print ("The dealer has a score of " + str(dealer_score))
         if dealer_score > 21:
             print ("The dealer busts! You win!")
+        if dealer_score == 21:
+            print ("The dealer has 21. They win!")
 
 
 start = input("Welcome to blackjack! Press enter to start.")
@@ -60,30 +62,37 @@ print ()
 print ("Your first card: " + str(player_card1))
 print ("The dealer's first card: " + str(dealer_card1))
 print ("Your second card: " + str(player_card2))
-print ("The dealer has been delt a second card, but it's face down!")
+print ("The dealer has been dealt a second card, but it's face down!")
 print ()
 print ("Your score: " + str(get_score("player")))
 print ("The dealer's current score: " + str(dealer_card1))
 
-turn = input("Your turn! What would you like to do? (hit or stand)")
-print()
+if player_score == 21:
+    print ("You have 21! You win!")
+else:
+    turn = input("Your turn! What would you like to do? (type hit or stand) ")
+    print()
 
 if turn == "stand":
     print ("The dealer's second card is a " + str(dealer_card2))
     dealer_turn()
 elif turn == "hit":
-    while player_score < 21:
+    decision = "hit"
+    while decision == "hit":
+        print ("The dealer gives you a card...")
         player_score = get_score("player")
         player_score += int(random.choice(deck))
-        if turn == "stand":
+        print ("Your score is now " + str(player_score))
+        if player_score > 21:
+            print ("You went over 21! You lose")
+            break
+        else:
+            decision = input("What would you like to do? (type hit or stand) ")
+            print ("The dealer gives you a card...")
+        if decision == "stand":
             dealer_turn()
             break
-        if turn == "hit":
-            player_score = get_score("player")
-            player_score += int(random.choice(deck))
-        if player_score > 21:
-            print (player_score)
-            print ("You went over 21! You lose")
+
 
         
 

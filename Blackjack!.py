@@ -46,9 +46,16 @@ player_score = 0
 # function to play out the dealers turn
 def dealer_turn():
     dealer_score = int(get_score("dealer"))
+    print()
+    print ("The dealer's second card is a " + str(dealer_card2))
+    print ("The dealer has a score of " + str(dealer_score))
+    if dealer_score == 21:
+        print ("The dealer has 21. They win!")
     while dealer_score < 17:
         print ("The dealer is going...")
-        dealer_score += int(random.choice(deck))
+        new_card = random.choice(deck)
+        print ("The dealer is given a " + str(new_card))
+        dealer_score += int(new_card)
         print ("The dealer has a score of " + str(dealer_score))
         if dealer_score > 21:
             print ("The dealer busts! You win!")
@@ -76,20 +83,23 @@ else:
     print()
 
 if turn == "stand":
-    print ("The dealer's second card is a " + str(dealer_card2))
-    print ("The dealer has a score of " + str(get_score("dealer")))
     dealer_score = dealer_turn()
 elif turn == "hit":
     decision = "hit"
+    player_score = get_score("player")
     while decision == "hit":
         print ("The dealer gives you a card...")
-        player_score = get_score("player")
-        player_score += int(random.choice(deck))
+        new_card = random.choice(deck)
+        print ("The dealer gave you a " + str(new_card)) 
+        player_score += int(new_card)
         print ("Your score is now " + str(player_score))
         if player_score > 21:
             print ("You went over 21! You lose")
             print ("The dealer's second card was a " + str(dealer_card2))
             print ("The dealer had a score of " + str(get_score("dealer")))
+            break
+        if player_score == 21:
+            print ("You have 21! You win!")
             break
         else:
             decision = input("What would you like to do? (type hit or stand) ")
@@ -103,10 +113,10 @@ dealer_score = int(dealer_score)
 if player_score < 21 and dealer_score < 21:
     if player_score > dealer_score:
         print ("You have a score of %s, and the dealer has a score of %s" % (player_score, dealer_score))
-        print (" You have the higher score. You win!")
+        print ("You have the higher score. You win!")
     if dealer_score > player_score:
         print ("You have a score of %s, and the dealer has a score of %s" % (player_score, dealer_score))
-        print (" The dealer has the higher score. The house wins!")
+        print ("The dealer has the higher score. The house wins!")
 
 
         
